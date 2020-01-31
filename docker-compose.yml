@@ -1,0 +1,22 @@
+version: '3.7'
+
+networks:
+  specnaz:
+    name: specnaz
+    ipam:
+      config:
+      - subnet: 12.11.11.0/24
+
+services:
+  specnaz-maven:
+    container_name: specnaz-maven
+    image: gradle:latest
+    entrypoint: 'tail -f'
+    working_dir: /ws
+    ports:
+    - 3000
+    volumes:
+    - .:/ws
+    networks:
+      specnaz:
+        ipv4_address: 12.11.11.2
